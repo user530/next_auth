@@ -11,15 +11,16 @@ export default function SignupPage() {
         name: '',
     });
 
-    const onSignup = async () => {
-
+    const onSignup = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        console.log('submit!');
     }
 
     return (
         <div className="flex flex-col items-center justify-center min-h-screen py-2">
             <h1 className="text-2xl">Signup Page</h1>
 
-            <form className="flex flex-col justify-center p-4" onSubmit={(e) => { e.preventDefault(); console.log('submit!') }}>
+            <form className="flex flex-col justify-center p-4" onSubmit={onSignup}>
                 <div className="flex">
                     <label className="p-2 grow" htmlFor="email">Email</label>
                     <input
