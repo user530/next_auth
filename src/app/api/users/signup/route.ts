@@ -8,11 +8,9 @@ connect();
 export async function POST(request: NextRequest) {
     try {
         const reqBody = await request.json();
-        const { username, email, password } = reqBody;
+        const { name, email, password } = reqBody;
 
-        console.log(reqBody);
-
-        if (!username)
+        if (!name)
             return NextResponse.json(
                 { error: 'Please provide user name!' },
                 { status: 400 }
@@ -42,9 +40,9 @@ export async function POST(request: NextRequest) {
         const hashedPassword = await bcrypt.hash(password, salt);
 
         const newUser = new User({
-            username,
+            name,
             email,
-            hashedPassword,
+            password: hashedPassword,
         });
 
         const result = await newUser.save();
