@@ -2,8 +2,8 @@
 import Link from 'next/link';
 import React from 'react';
 import { useRouter } from 'next/navigation';
-import axios from 'axios';
-import toast from 'react-hot-toast';
+import axios, { AxiosError } from 'axios';
+import toast, { Toaster } from 'react-hot-toast';
 
 export default function SignupPage() {
     const router = useRouter();
@@ -24,13 +24,13 @@ export default function SignupPage() {
             setIsLoading(true);
             const res = await axios.post('/api/users/signup', user);
 
-            console.log('Response:');
-            console.log(res);
-
             router.push('/login')
-
         } catch (error) {
-            toast.error((error as Error).message ?? 'Something went wrong during signup! Try again later.');
+            const message = error instanceof AxiosError && error.response?.data?.error
+                ? error.response?.data?.error
+                : 'Something went wrong during signup! Try again later.'
+
+            toast.error(message);
         } finally {
             setIsLoading(false);
         }
@@ -52,6 +52,7 @@ export default function SignupPage() {
 
     return (
         <div className="flex flex-col items-center justify-center min-h-screen py-2">
+            <div><Toaster /></div>
             {
                 isLoading
                     ? <p>Loading...</p>
