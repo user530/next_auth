@@ -1,6 +1,18 @@
 import mongoose from 'mongoose';
 
-const userSchema = new mongoose.Schema({
+interface IUser {
+    name: string,
+    email: string,
+    password: string,
+    isVerified: boolean,
+    isAdmin: boolean,
+    forgotPasswordToken: string,
+    forgotPasswordTokenExpiry: Date,
+    verifyToken: string,
+    verifyTokenExpiry: Date,
+}
+
+const userSchema = new mongoose.Schema<IUser>({
     name: {
         type: String,
         required: [true, 'Please provide a user name'],
@@ -36,4 +48,4 @@ const userSchema = new mongoose.Schema({
     },
 });
 
-export const User = mongoose.models.users || mongoose.model('users', userSchema);
+export const User = mongoose.models.users as mongoose.Model<IUser> || mongoose.model<IUser>('users', userSchema);
