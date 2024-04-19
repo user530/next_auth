@@ -3,6 +3,7 @@ import { User } from '@/models/userModel';
 import bcrypt from 'bcryptjs';
 import { NextRequest, NextResponse } from 'next/server';
 import jwt from 'jsonwebtoken';
+import type { Token } from '@/types/token';
 
 connect();
 
@@ -30,10 +31,10 @@ export async function POST(request: NextRequest) {
             );
 
         const tokenData = {
-            id: user._id,
+            id: user._id.toString(),
             username: user.name,
             email: user.email,
-        };
+        } as Token;
 
         const token = jwt.sign(tokenData, process.env.TOKEN_SECRET!, { expiresIn: "1h" });
 
