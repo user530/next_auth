@@ -8,14 +8,11 @@ import toast, { Toaster } from 'react-hot-toast';
 export default function ProfilePage() {
     const router = useRouter();
 
-    const [data, setData] = React.useState<string | null>(null);
-
     const getUserData = async () => {
         const res = await axios.get('/api/users/me');
         const { data: userData } = res.data;
 
-        // setData((userData as Token).id)
-        router.push(`/${(userData as Token).id}`);
+        router.push(`/profile/${(userData as Token).id}`);
     }
 
     const onLogout = async () => {
@@ -32,14 +29,19 @@ export default function ProfilePage() {
         }
     };
 
+    React.useEffect(
+        () => {
+            getUserData();
+        },
+        []
+    )
+
     return (
         <div className="flex flex-col items-center justify-center min-h-screen py-2">
             <div><Toaster /></div>
 
-            <h1 className="text-4xl mb-5">Profile {data ?? ''}</h1>
+            <h1 className="text-4xl mb-5">Profile</h1>
             <p className="text-2xl">ProfileData</p>
-
-            <button onClick={getUserData}>GetTokenData</button>
 
             <button
                 onClick={onLogout}
