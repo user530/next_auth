@@ -2,6 +2,7 @@ import { getTokenData } from '@/helpers/getTokenData';
 import { NextRequest, NextResponse } from 'next/server';
 import { connect } from '@/dbConfig/dbConfig';
 import { User } from '@/models/userModel';
+import { Token } from '@/types/token';
 
 connect();
 
@@ -18,7 +19,7 @@ export async function GET(request: NextRequest) {
             throw new Error('User not found!');
 
         return NextResponse.json(
-            { message: 'User found!', success: true, data: user },
+            { message: 'User found!', success: true, data: { id, email, username } },
             { status: 200 },
         );
 
