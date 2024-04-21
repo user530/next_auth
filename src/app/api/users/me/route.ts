@@ -23,8 +23,6 @@ export async function GET(request: NextRequest) {
         );
 
     } catch (error) {
-        // Send back success: failed -> listen to it in middleware and based on the getme result -> handle reroute
-
         return NextResponse.json(
             { error: (error as Error).message ?? 'Undefined error!', },
             { status: 500 },
