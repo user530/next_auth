@@ -28,6 +28,7 @@ export const sendEmail = async (mailData: IMailData) => {
                         verifyTokenExpiry: Date.now() + 60 * 60 * 1000,
                     }
                 );
+                break;
             case EmailTypes.RESET:
                 await User.findByIdAndUpdate(
                     userId,
@@ -36,8 +37,9 @@ export const sendEmail = async (mailData: IMailData) => {
                         forgotPasswordTokenExpiry: Date.now() + 60 * 60 * 1000,
                     }
                 );
+                break;
             default:
-            // throw new Error('Invalid email type!');
+                throw new Error('Invalid email type!');
         }
 
         const transporter = nodemailer.createTransport(
