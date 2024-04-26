@@ -2,7 +2,7 @@ import nodemailer from 'nodemailer';
 import { User } from "@/models/userModel";
 import bcrypt from 'bcryptjs';
 
-enum EmailTypes {
+export enum EmailTypes {
     VERIFY = 'VERIFY',
     RESET = 'RESET',
 }
@@ -57,7 +57,7 @@ export const sendEmail = async (mailData: IMailData) => {
             from: 'user530@gmail.com',
             to: email,
             subject: isVerifyReq ? 'Verify your email' : 'Reset your password',
-            html: `<p>Click <a href="${process.env.domain}/verifyemail?token=${hashedToken}">here</a> to ${isVerifyReq ? 'verify your email' : 'reset your password'}</p>`
+            html: `<p>Click <a href="${process.env.DOMAIN}/verifyemail?token=${hashedToken}">here</a> to ${isVerifyReq ? 'verify your email' : 'reset your password'}</p>`
         };
 
         const mailResponse = await transporter.sendMail(mailOptions);

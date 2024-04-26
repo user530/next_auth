@@ -29,19 +29,19 @@ export default function ProfilePage() {
         }
     };
 
-    React.useEffect(
-        () => {
-            getUserData();
-        },
-        []
-    )
-
     return (
         <div className="flex flex-col items-center justify-center min-h-screen py-2">
             <div><Toaster /></div>
 
             <h1 className="text-4xl mb-5">Profile</h1>
             <p className="text-2xl">ProfileData</p>
+
+            <button
+                onClick={getUserData}
+                className="bg-grey-500 hover:bg-grey-700 text-white font-bold py-2 px-4 rounded mt-4"
+            >
+                Get user data
+            </button>
 
             <button
                 onClick={onLogout}
