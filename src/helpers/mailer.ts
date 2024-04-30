@@ -59,7 +59,7 @@ export const sendEmail = async (mailData: IMailData) => {
             from: 'user530@gmail.com',
             to: email,
             subject: isVerifyReq ? 'Verify your email' : 'Reset your password',
-            html: `<p>Click <a href="${process.env.DOMAIN}/verifyemail?token=${hashedToken}">here</a> to ${isVerifyReq ? 'verify your email' : 'reset your password'}</p>`
+            html: `<p>Click <a href="${process.env.DOMAIN}/verify_email?token=${hashedToken}">here</a> to ${isVerifyReq ? 'verify your email' : 'reset your password'}</p>`
         };
 
         const mailResponse = await transporter.sendMail(mailOptions);
